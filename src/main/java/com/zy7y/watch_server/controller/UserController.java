@@ -2,6 +2,7 @@ package com.zy7y.watch_server.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zy7y.watch_server.pojo.rep.R;
 import com.zy7y.watch_server.pojo.req.Login;
 import com.zy7y.watch_server.pojo.User;
 import com.zy7y.watch_server.service.UserService;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @Tag(name="管理员相关")
 @RestController
@@ -33,7 +33,7 @@ public class UserController {
 
     @Operation(summary = "管理员注册")
     @PostMapping("/register")
-    public String register(@RequestBody Login user){
+    public R register(@RequestBody Login user){
         User obj = new User();
         obj.setPassword(user.getPassword());
         obj.setUsername(user.getUsername());
@@ -42,7 +42,7 @@ public class UserController {
 
     @Operation(summary = "管理员登录")
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Login user) {
+    public R login(@RequestBody Login user) {
         User obj = new User();
         obj.setPassword(user.getPassword());
         obj.setUsername(user.getUsername());

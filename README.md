@@ -9,5 +9,4 @@
 - [登录、注册加解密](https://www.cnblogs.com/zbjj-itblog/p/10730619.html)
 - [SpringBoot 集成JWT](https://www.cnblogs.com/code-duck/p/13485236.html)
 - [SpringBoot 拦截器注入Mapper NullPointerException](https://blog.csdn.net/abc_123456___/article/details/94647705)
-- [SpringBoot 统一响应结构]()
-- [SpringBoot 统一异常处理]()
+- [SpringBoot 统一响应结构](https://www.cnblogs.com/sw-code/p/13956522.html)
