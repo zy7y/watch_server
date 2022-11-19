@@ -5,6 +5,6 @@
 
 <mapper namespace="com.zy7y.watch_server.dao.UserDao">
     <select id="findAll" resultType="User">
-        select * from user;
+        select * from user
     </select>
 </mapper>
