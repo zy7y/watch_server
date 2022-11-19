@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name="管理员相关")
 @RestController
@@ -41,7 +42,7 @@ public class UserController {
 
     @Operation(summary = "管理员登录")
     @PostMapping("/login")
-    public String login(@RequestBody Login user) {
+    public Map<String, Object> login(@RequestBody Login user) {
         User obj = new User();
         obj.setPassword(user.getPassword());
         obj.setUsername(user.getUsername());
