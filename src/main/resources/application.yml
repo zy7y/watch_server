@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driverClassName: org.sqlite.JDBC
+    url: jdbc:sqlite:watch.sqlite3
+
+logging:
+  level:
+    com.zy7y.watch_server.dao: debug
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zy7y.watch_server.pojo
+
+
