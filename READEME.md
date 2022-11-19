@@ -6,3 +6,7 @@
 - [SpringBoot 集成Mybatis](https://www.cnblogs.com/fishpro/p/spring-boot-study-mybatis.html)
 - [SpringBoot 集成PageHelper](https://www.cnblogs.com/ckfuture/p/15079916.html)
 - [SpringBoot 集成Swagger v3](https://cloud.tencent.com/developer/article/1978526)
+- [登录、注册加解密](https://www.cnblogs.com/zbjj-itblog/p/10730619.html)
+- [SpringBoot 集成JWT]()
+- [SpringBoot 统一响应结构]()
+- [SpringBoot 统一异常处理]()

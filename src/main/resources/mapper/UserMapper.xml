@@ -7,4 +7,18 @@
     <select id="findAll" resultType="User">
         select * from user
     </select>
+    <select id="getUserByFilter" resultType="User">
+        select * from user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into user (username, password) values (#{username}, #{password})
+    </insert>
 </mapper>

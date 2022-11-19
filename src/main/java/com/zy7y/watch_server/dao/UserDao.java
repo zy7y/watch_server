@@ -14,4 +14,14 @@ public interface UserDao {
      * @return
      */
     List<User> findAll();
+
+    /**
+     *
+     */
+
+    Integer insert(User user);
+
+    // 根据条件查询 id ｜ username
+    User getUserByFilter(User user);
+
 }
