@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zy7y.watch_server.dao.UserDao;
 import com.zy7y.watch_server.pojo.User;
 import com.zy7y.watch_server.util.JWTUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -16,14 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Slf4j
 public class JWTInterceptor implements HandlerInterceptor {
     @Autowired(required = false)
     private UserDao userDao;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+        log.info(request.getRequestURI());
         Map<String, String> map = new HashMap<>();
 
         //获取请求头中的token令牌
@@ -37,21 +38,22 @@ public class JWTInterceptor implements HandlerInterceptor {
             if (obj != null){
                 return true;
             }
-            map.put("msg", "无效签名-用户不存在!");
+            map.put("message", "无效签名-用户不存在!");
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
-            map.put("msg", "无效签名!");
+            map.put("message", "无效签名!");
         } catch (TokenExpiredException e) {
             e.printStackTrace();
-            map.put("msg", "token过期!");
+            map.put("message", "token过期!");
         } catch (AlgorithmMismatchException e) {
             e.printStackTrace();
-            map.put("msg", "token算法不一致!");
+            map.put("message", "token算法不一致!");
         } catch (Exception e) {
             e.printStackTrace();
-            map.put("msg", "token无效!!");
+            map.put("message", "token无效!!");
         }
         map.put("code", "403");//设置状态
+        map.put("data", null);
         //将 map 转为json  jackson
         String json = new ObjectMapper().writeValueAsString(map);
         response.setContentType("application/json;charset=UTF-8");

@@ -6,18 +6,18 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@Schema(name = "返回结果实体类", description = "结果实体类")
+@Schema( description = "结果实体类")
 public class R implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Schema(name = "返回码")
+    @Schema(description = "返回码")
     private Integer code;
 
-    @Schema(name = "返回消息")
+    @Schema(description = "返回消息")
     private String message;
 
-    @Schema(name = "返回数据")
+    @Schema(description = "返回数据")
     private Object data;
 
     private R() {

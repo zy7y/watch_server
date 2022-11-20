@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zy7y.watch_server.dao.MovieDao">
+    <resultMap id="movieResult" type="com.zy7y.watch_server.pojo.Movie">
+        <id column="id" property="id"/>
+        <result column="movie_name" property="movieName"/>
+        <result column="movie_year" property="movieYear"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+    <select id="getAll" resultMap="movieResult">
+        select * from movie
+        <where>
+            <if test="movieName != null">
+                and movie_name like #{movieName}
+            </if>
+            <if test="movieYear != null">
+                and movie_year = #{movieYear}
+            </if>
+
+        </where>
+    </select>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into movie (movie_name, movie_year) values (#{movieName}, #{movieYear})
+    </insert>
+    <delete id="delete">
+        delete from movie where id = #{id}
+    </delete>
+    <update id="update">
+        update movie set movie_name = #{movieName}, movie_year = #{movieYear} where id = #{id}
+    </update>
+    <select id="getMovieById" resultMap="movieResult">
+        select * from movie where id = #{id}
+    </select>
+</mapper>
