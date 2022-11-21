@@ -2,7 +2,12 @@ spring:
   datasource:
     driverClassName: org.sqlite.JDBC
     url: jdbc:sqlite:watch.sqlite3
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
 logging:
   level:
     com.zy7y.watch_server.dao: debug

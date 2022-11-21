@@ -13,10 +13,10 @@
     <select id="getAll" resultMap="movieResult">
         select * from movie
         <where>
-            <if test="movieName != null">
+            <if test="movieName != null and movieName != '' ">
                 and movie_name like #{movieName}
             </if>
-            <if test="movieYear != null">
+            <if test="movieYear != null and movieYear != '' ">
                 and movie_year = #{movieYear}
             </if>
 
@@ -29,7 +29,16 @@
         delete from movie where id = #{id}
     </delete>
     <update id="update">
-        update movie set movie_name = #{movieName}, movie_year = #{movieYear} where id = #{id}
+        update movie set movie_name
+        <set>
+            <if test="movieName != null and movieName != '' ">
+                movie_name = #{movieName}
+            </if>
+            <if test="movieYear != null and movieName != '' ">
+                movie_year = #{movieYear}
+            </if>
+        </set>
+        where id = #{id}
     </update>
     <select id="getMovieById" resultMap="movieResult">
         select * from movie where id = #{id}
