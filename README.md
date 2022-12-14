@@ -17,5 +17,6 @@
 - [SpringBoot 拦截器注入Mapper NullPointerException](https://blog.csdn.net/abc_123456___/article/details/94647705)
 - [SpringBoot 统一响应结构](https://www.cnblogs.com/sw-code/p/13956522.html)
 - [SpringDoc 认证头](https://blog.csdn.net/weixin_42506330/article/details/125394620)
+- [Quartz 定时任务](https://mawen.work/java/2020/05/28/quartz/)
 
 

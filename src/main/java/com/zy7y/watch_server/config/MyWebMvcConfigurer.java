@@ -19,6 +19,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(jwtInterceptor())
                 .excludePathPatterns("/login") // 登录接口不用于token验证
                 .excludePathPatterns("/register", "/swagger-ui/**", "/v3/api-docs/**", "/**/*.html")
+                .excludePathPatterns("/job")
+                .excludePathPatterns("/job/**")
                 .addPathPatterns("/**"); // 其他非登录接口都需要进行token验证
     }
 }
