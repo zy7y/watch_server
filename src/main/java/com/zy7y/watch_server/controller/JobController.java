@@ -1,6 +1,7 @@
 package com.zy7y.watch_server.controller;
 
 import com.zy7y.watch_server.job.TestJob;
+import com.zy7y.watch_server.pojo.rep.JobVO;
 import com.zy7y.watch_server.pojo.rep.R;
 import com.zy7y.watch_server.pojo.req.JobCreate;
 import com.zy7y.watch_server.pojo.req.JobPatch;
@@ -38,6 +39,7 @@ public class JobController {
                     .withIdentity(jobCreate.getTriggerName(), jobCreate.getTriggerGroupName())
                     .startNow()
                     .usingJobData("stamp", System.currentTimeMillis())
+                    .usingJobData("name", jobCreate.getJobName())
                     .withSchedule(CronScheduleBuilder.cronSchedule(jobCreate.getCron()))
                     .build();
             scheduler.scheduleJob(jobDetail, trigger);
@@ -100,10 +102,9 @@ public class JobController {
             TriggerKey triggerKey = new TriggerKey(jobCreate.getTriggerName(), jobCreate.getTriggerGroupName());
             CronTrigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity(triggerKey)
-                    .startNow()
                     .withSchedule(CronScheduleBuilder.cronSchedule(jobCreate.getCron()))
                     .build();
-            scheduler.rescheduleJob(triggerKey, trigger);           //更新并立即执行任务
+            scheduler.rescheduleJob(triggerKey, trigger);
             return R.success(jobCreate);
         } catch (SchedulerException e){
             e.printStackTrace();
@@ -114,15 +115,30 @@ public class JobController {
 
     @Operation(summary = "定时任务列表")
     @GetMapping("")
-    public R getJobsByState() throws Exception {
-        List<String> jobNames = new ArrayList<>();
-        List<String> jobGroupNames = scheduler.getJobGroupNames();         //获取所有注册到调度器任务的group
-        for (String groupName : jobGroupNames) {
-            for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {        //获取每个group下的所有任务
-                jobNames.add(jobKey.getName());
+    public R<List<JobVO>> getAllJob() throws Exception {
+        GroupMatcher<JobKey> matcher = GroupMatcher.anyJobGroup();
+        List<JobVO> jobVOList = new ArrayList<>();
+        for(JobKey jobKey: scheduler.getJobKeys(matcher)){
+            List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobKey);
+            for (Trigger trigger: triggers) {
+                JobVO jobVO = new JobVO();
+                jobVO.setJobName(jobKey.getName());
+                jobVO.setJobGroupName(jobKey.getGroup());
+                // 触发器状态
+                Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
+                jobVO.setStatus(triggerState.name());
+                if (trigger instanceof  CronTrigger){
+                    jobVO.setCron(((CronTrigger) trigger).getCronExpression());
+                }
+                String[] triggerInfos = String.valueOf(trigger.getKey()).split("\\.");
+                jobVO.setTriggerName(triggerInfos[0]);
+                jobVO.setTriggerGroupName(triggerInfos[0]);
+                jobVO.setNextRunTime(trigger.getNextFireTime());
+                jobVOList.add(jobVO);
             }
         }
-        return R.success(jobNames);
+
+        return R.success(jobVOList);
     }
 
 

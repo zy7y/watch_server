@@ -7,9 +7,7 @@ import java.io.Serializable;
 
 @Data
 @Schema( description = "结果实体类")
-public class R implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class R<T> implements Serializable {
 
     @Schema(description = "返回码")
     private Integer code;
@@ -18,13 +16,13 @@ public class R implements Serializable {
     private String message;
 
     @Schema(description = "返回数据")
-    private Object data;
+    private T data;
 
     private R() {
 
     }
 
-    public R(ResultCode resultCode, Object data) {
+    public R(ResultCode resultCode, T data) {
         this.code = resultCode.code();
         this.message = resultCode.message();
         this.data = data;
@@ -42,8 +40,9 @@ public class R implements Serializable {
         return result;
     }
     // 返回成功
-    public static R success(Object data) {
-        R result = new R();
+    // https://blog.csdn.net/q610376681/article/details/88542620
+    public static <T>R<T> success(T data) {
+        R<T> result = new R<>();
         result.setResultCode(ResultCode.SUCCESS);
         result.setData(data);
         return result;

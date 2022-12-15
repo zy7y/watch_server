@@ -12,6 +12,11 @@ import java.util.Date;
 public class TestJob implements Job {
 
     private long stamp;
+    private String name;
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     // 获取到job创建时的usingDataMap中的对应value
     public void setStamp(long stamp) {
@@ -22,6 +27,6 @@ public class TestJob implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         // 和上面等价，拿到的数据时int类型
 //        jobExecutionContext.getMergedJobDataMap().getInt("taskId");
-        log.info("{} 执行了{}", stamp, new Date());
+        log.info("{}  {}执行了{}", stamp, name, new Date());
     }
 }
