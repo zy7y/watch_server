@@ -21,6 +21,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/register", "/swagger-ui/**", "/v3/api-docs/**", "/**/*.html")
                 .excludePathPatterns("/job")
                 .excludePathPatterns("/job/**")
+                .excludePathPatterns("/upload/**")
                 .addPathPatterns("/**"); // 其他非登录接口都需要进行token验证
     }
 }

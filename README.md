@@ -21,4 +21,5 @@
 - [SpringDoc 认证头](https://blog.csdn.net/weixin_42506330/article/details/125394620)
 - [Quartz 定时任务](https://mawen.work/java/2020/05/28/quartz/)
 - [Quartz 查询所有定时任务](https://blog.csdn.net/qq_48302234/article/details/121262977)
+- [异步处理耗时操作、上传文件](https://www.cnblogs.com/teach/p/14127024.html)
 
